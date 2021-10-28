@@ -9,12 +9,12 @@ callable elements of BASIC 65, which is an enhanced version of BASIC 10.
 Some of these can take one or more arguments, which are pieces of input
 that you provide as part of the command or function call, to help describe what you want to achieve.
 Some also require that you use special keywords.
-Here is an example of how commands, functions and operators are
+Here is an example of how commands, functions, and operators (all of which are also known as keywords) are
 described in this appendix:
 
 {\bf KEY <numeric expression>,<string expression> }
 
-In this case, KEY is what we call a \textbf{keyword}. That just means
+In this case, KEY is a \textbf{keyword}. That means it's
 a special word that BASIC understands.
 Keywords are always written in CAPITALS, so that you can easily
 recognise them.
@@ -43,8 +43,8 @@ wrong thing in the wrong place, it is called a
 syntax error, and the MEGA65 will tell you if you have made one
 by displaying a \screentext{?SYNTAX ERROR} message.
 
-There is nothing to worry about if you get an error from the computer.
-Instead, it is just the computer's way of telling you that something
+There is nothing to worry about if you get an error from the MEGA65.
+Instead, it is just the MEGA65's way of telling you that something
 isn't quite right, so that you can more easily
 find and fix the problem.
 Error messages such as this won't hurt the computer or cause any damage to your program,
@@ -72,10 +72,10 @@ It is very common for commands, functions and operators to use one or
 more {\bf``expressions''}.
 An expression is just a fancy name for something that equates to a value.
 This could be as simple as a string (\screentext{"HELLO"}), a number
-(\screentext{23.7}), or a complex calculation that might include
+(\screentext{23.7}), or a complex calculation, that might include
 one or more functions or operators (\screentext{LEN("HELLO") * (3 XOR 7)}).
 Generally speaking, expressions can result in either a string or a numeric result.
-In this case we call the expressions either string expressions or numeric expressions.
+In this case we call the expressions string expressions or numeric expressions.
 For example, \screentext{"HELLO"} is a {\bf string expression}, while
 \screentext{23.7} is a {\bf numeric expression}.
 
@@ -110,11 +110,47 @@ prompt, or from within a program, for example:
 \end{verbatim}
 \end{tcolorbox}
 
+The table below describes what the other symbols found in this appendix mean.
+
+\begin{center}
+    \setlength{\def\arraystretch{1.5}\tabcolsep}{6pt}
+    \begin{longtable}{c|L{8cm}}
+        \textbf{Symbol} & \textbf{Meaning}\\
+        \hhline{==}
+        \endhead
+        \dots &
+        You can repeat what proceeds the \dots\ as many times as you like,
+        or not at all. \\
+        \hline
+        [ ] &
+        Whatever appears between the square brackets is optional and you can leave it out. \\
+        \hline
+        < | > &
+        You must choose one option. The options are separated by |. \\
+        \hline
+        [ | ] &
+        You can choose one option. The options are separated by |.
+        You can also choose no option by omitting it. \\
+        \hline
+        \{ , \} &
+        Between \{ and \} are a series of expressions separated by commas.
+        The expressions are optional and you can leave them out, but you must include
+        at least one expression. You must enter all commas up to the left of the last expression
+        you're leaving in. \\
+        \hline
+        [\{ , \}] &
+        This is like \{ , \} except the you can leave out all of the expressions.
+        When you do, you also leave out all of the commas. \\
+        \hline
+
+    \end{longtable}
+\end{center}
+
 \subsection{Direct Mode Commands}
 \index{BASIC 65 Commands!Direct Mode}
 Note that some commands are said to only work in {\bf direct mode}. This means that the command can't be part of a BASIC
 program, but can be entered directly to the screen. In the two {\bf PRINT} examples above, the first was entered in
-direct mode, whereas the second one wasn't. {\bf PRINT} works in both direct and indirect mode.
+direct mode, whereas the second one wasn't. The examples above would work since {\bf PRINT} works in both direct and indirect mode.
 
 \newpage
 \subsection{BASIC 65 Constants}
@@ -145,9 +181,9 @@ string                  & "X"     & "TEXT"    \\
 Each scalar variable consumes 8 bytes of storage in memory.
 The reserved area in bank 0 from \$F700-\$FEFF can store 256 variables.
 Variables don't need to be declared, and their the type is determined by an appended
-character. All variables without an appended character are regarded as REAL by default.
-The storage is claimed at their first usage and they are initialised to zero,
-whereas string variables are initialised as an empty string \screentext{""}.
+character. All variables without an appended character are regarded as REAL by default,
+and storage is claimed at their first usage. They are also initialised to zero,
+whereas string variables are initialised as an empty string "".
 
 {\ttfamily
 \setlength{\tabcolsep}{1mm}
@@ -247,8 +283,8 @@ The operators \screentext{NOT, AND, OR} and \screentext{XOR} can be used both as
 logical operators, or as boolean operators.
 
 \begin{itemize}
-  \item {\bf Logical Operator Example}: \screentext{IF A>B AND A<0}
-  \item {\bf Boolean Operator Example}: \screentext{A = B AND \$7F}
+  \item Logical Operator Example: \screentext{IF A>B AND A<0}
+  \item Boolean Operator Example: \screentext{A = B AND \$7F}
 \end{itemize}
 
 Both examples always produce an integer result internally, which can be interpreted
@@ -263,7 +299,8 @@ and store the result in \screentext{A}.
 The result of logical operations can be used in numerical expressions as well,
 for example,
 \screentext{A = A - (B > 7)}
-will increment \screentext{A} by 1 if the result of \screentext{(B > 7)} is {\bf TRUE} (-1).
+will increment \screentext{A} by 1 if the result of \screentext{(B > 7)} is {\bf TRUE} (-1). This is because
+the mathematical expression of \screentext{A = A - (-1)} is the same as \screentext{A = A + 1}.
 
 The operators have precedences, which are listed in the tables below.
 In the statement \screentext{A * A - B * B}
@@ -418,40 +455,6 @@ low & OR XOR\\
 
 \newpage
 \section{BASIC Command Reference}
-
-\begin{center}
-\setlength{\def\arraystretch{1.5}\tabcolsep}{6pt}
-\begin{longtable}{c|L{8cm}}
-\textbf{Symbol} & \textbf{Meaning}\\
-\hhline{==}
-\endhead
-\dots &
-You can repeat what proceeds the \dots\ as many times as you like,
-including not at all. \\
-\hline
-[ ] &
-Whatever appears between the square brackets is optional and you can leave it out. \\
-\hline
-< | > &
-You must choose one option. The options are separated by |. \\
-\hline
-[ | ] &
-You can choose one option. The options are separated by |.
-You can also choose no option by leaving it out. \\
-\hline
-\{ , \} &
-Between \{ and \} are a series of expressions separated by commas.
-The expressions are optional and you can leave them out, but you must include
-at least one expression. You keep the commas to the left of the last expression
-you're leaving in. \\
-\hline
-[\{ , \}] &
-This is like \{ , \} except the you can leave out all of the expressions.
-When you do, you also leave out all of the commas. \\
-\hline
-
-\end{longtable}
-\end{center}
 
 
 % =======================================
@@ -5143,6 +5146,7 @@ A=5      :REM SHORTER AND FASTER
 
 \newpage
 \subsection{LIST}
+\label{basic65-list}
 \index{BASIC 65 Commands!LIST}
 \begin{description}[leftmargin=2cm,style=nextline]
 \item [Token:] \$9B
