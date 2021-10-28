@@ -32,16 +32,16 @@ This means that whatever appears between the square brackets is
 optional, that is, you can include it if you need to, but
 that the command, function or operator will work just fine without it.
 For example, the {\bf CIRCLE} command has
-an optional numeric argument to indicate if the circle should be filled
-when being drawn.
+an optional numeric argument to indicate whether the circle should be filled
+whilst being drawn.
 
-The comma, and some other symbols and punctuation marks just represent themselves.
+The comma, and some other symbols and punctuation marks simply represent themselves.
 In this case, it means that there must be a comma between the
 {\bf numeric expression} and the {\bf string expression}.
 This is what we call syntax: If you miss something out, or put the
 wrong thing in the wrong place, it is called a
-syntax error, and the MEGA65 will tell you if you have made a syntax error
-by giving a \screentext{?SYNTAX ERROR} message.
+syntax error, and the MEGA65 will tell you if you have made one
+by displaying a \screentext{?SYNTAX ERROR} message.
 
 There is nothing to worry about if you get an error from the computer.
 Instead, it is just the computer's way of telling you that something
@@ -51,7 +51,7 @@ Error messages such as this won't hurt the computer or cause any damage to your 
 so there is nothing to worry about.
 For example, if we accidentally left the comma out, or replaced it with
 a full stop, the computer will respond with
-a SYNTAX ERROR, similar to what's shown below:
+a \screentext{?SYNTAX ERROR}, similar to what's shown below:
 
 \newpage
 \begin{tcolorbox}[colback=black,coltext=white]
@@ -70,9 +70,9 @@ KEY 8."FISH"
 
 It is very common for commands, functions and operators to use one or
 more {\bf``expressions''}.
-An expression is just a fancy name for something that has a value.
-This could be a string (\screentext{"HELLO"}), a number
-(\screentext{23.7}), or a calculation that might include
+An expression is just a fancy name for something that equates to a value.
+This could be as simple as a string (\screentext{"HELLO"}), a number
+(\screentext{23.7}), or a complex calculation that might include
 one or more functions or operators (\screentext{LEN("HELLO") * (3 XOR 7)}).
 Generally speaking, expressions can result in either a string or a numeric result.
 In this case we call the expressions either string expressions or numeric expressions.
@@ -80,7 +80,7 @@ For example, \screentext{"HELLO"} is a {\bf string expression}, while
 \screentext{23.7} is a {\bf numeric expression}.
 
 It is important to use the correct type of expression when writing your programs.
-If you accidentally use the wrong type, the computer will give you a
+If you accidentally use the wrong type, the computer will display a
 \screentext{?TYPE MISMATCH ERROR}, to say that the type
 of expression you gave doesn't match what it expected. For example, we will get a
 \screentext{?TYPE MISMATCH ERROR} if we type the following command,
@@ -95,7 +95,7 @@ because \screentext{"POTATO"} is a string expression instead of a numeric expres
 
 If you wish, you can try typing this in yourself.
 
-Commands are statements that you can use directly from the {\bf READY.}
+Commands are statements that you can use directly from the \screentext{READY.}
 prompt, or from within a program, for example:
 
 \begin{tcolorbox}[colback=black,coltext=white]
@@ -113,11 +113,15 @@ prompt, or from within a program, for example:
 \subsection{Direct Mode Commands}
 \index{BASIC 65 Commands!Direct Mode}
 Note that some commands are said to only work in {\bf direct mode}. This means that the command can't be part of a BASIC
-program, but can be entered directly to the screen.
+program, but can be entered directly to the screen. In the two {\bf PRINT} examples above, the first was entered in
+direct mode, whereas the second one wasn't. {\bf PRINT} works in both direct and indirect mode.
 
 \newpage
 \subsection{BASIC 65 Constants}
 \index{BASIC 65 Constants}
+Constants are values that can't be changed by your program while it is running. BASIC 65 has four types of constants,
+which are listed below:
+
 {\ttfamily
 \setlength{\tabcolsep}{1mm}
 \begin{center}
@@ -140,10 +144,10 @@ string                  & "X"     & "TEXT"    \\
 
 Each scalar variable consumes 8 bytes of storage in memory.
 The reserved area in bank 0 from \$F700-\$FEFF can store 256 variables.
-Variables don't need to be declared, the type is determined by an appended
+Variables don't need to be declared, and their the type is determined by an appended
 character. All variables without an appended character are regarded as REAL by default.
 The storage is claimed at their first usage and they are initialised to zero,
-string variables are initialised as an empty string "".
+whereas string variables are initialised as an empty string \screentext{""}.
 
 {\ttfamily
 \setlength{\tabcolsep}{1mm}
@@ -164,7 +168,7 @@ string                  &    \$    & length = 0 .. 255 & AB\$ = "TEXT" \\
 \subsection{BASIC 65 Arrays}
 \index{BASIC 65 Arrays}
 
-Each array consumes the number of elements multiplied by the item size
+Each array consumes the number of elements multiplied by the item size,
 plus the size of the header (6 + 2 * dimensions) in memory.
 For example the array
 \begin{tcolorbox}[colback=black,coltext=white]
@@ -186,16 +190,16 @@ them with a DIM statement. The arrays are initialised to zero for all
 elements on declaration. If an undeclared array element is used,
 an automatic implicit declaration is done, which sets the upper  boundary
 for each dimension to 10. For example, the usage of an undeclared element
-AB(3,5) would automatically perform a "DIM AB(10,10)".
+\screentext{AB(3,5)} would automatically perform a \screentext{DIM AB(10,10)}.
 The lower boundary for each dimension is always 0 (zero),
 so an array initialised with DIM AB(10) consists of 11 elements and accepts indexes from
 0 to 10.
 
 String arrays are, more precisely expressed, arrays of string
 descriptors. Each item consists of three bytes, which hold
-the values: length of the string and the address (low/high byte)
-of the assigned string in string memory.
-The usage of the BASIC function POINTER with a string or
+these values: the length of the string, and the 2 byte address (low/high byte)
+of the string in string memory.
+The usage of the BASIC function {\bf POINTER} with a string or
 string array element as the argument, returns the address of the descriptor, not the string itself.
 
 {\ttfamily
@@ -219,52 +223,53 @@ string   array &  3     &    \$    & length = 0 .. 255 & AB\$(X) = "TEXT" \\
 \index{BASIC 65 Operators}
 
 BASIC 65 provides a set of operators, that is typical for most BASIC
-programming languages. The usage and the precedence correspond to the standards.
+programming languages. The usage and precedences of these operators is documented in this section.
 
-The symbol {\bf =} is used both as assignment operator and as relational
-operator for testing equality. For example in a statement
-\screentextwide{A = B = 5} the first equal sign is the assignment operator,
-while the second one is a logical operator, comparing the varaible B with 5.
-As result A will be either assigned the value {\bf -1} for {\bf TRUE} or
-the value {\bf 0} for {\bf FALSE}.
-Notice, that the value of {\bf -1} for {\bf TRUE} is different to
-other programming languages, as for example {\bf C}, where the value of {\bf 1}
-is used for {\bf TRUE}.
+The \screentext{=} symbol is used both as an assignment operator, and as a relational
+operator for testing equality. For example, in the statement
+\screentext{A = B = 5}, the first equal sign is the assignment operator,
+while the second is a logical operator, comparing the variable \screentext{B} with \screentext{5}.
+The value of \screentext{A} will either be assigned the value \screentext{-1} (for {\bf TRUE}), or
+the value \screentext{0} (for {\bf FALSE}).
+You may have noticed that the value of \screentext{-1} for {\bf TRUE} is different to
+other programming languages, such as {\bf C}, where the value of {\bf 1}
+is used for {\bf TRUE} instead.
 
-The symbol {\bf +} can be used a positive sign for numerical expressions,
-as addition operator or for string concatenation. The number and type of operands
+The \screentext{+} symbol can be used as a positive sign for numerical expressions,
+as an addition operator, or for string concatenation. The number and type of operands
 determines the operation.
 
-The symbol {\bf -} can be used a negative sign for numerical expressions
-or as subtraction operator. The number and type of operands
+The \screentext{-} symbol can be used as a negative sign for numerical expressions,
+or as a subtraction operator. The number and type of operands
 determines the operation.
 
-The operators {\bf NOT, AND, OR, XOR} can be used both as
-logical operators (example 1) or boolean operator (example 2).
+The operators \screentext{NOT, AND, OR} and \screentext{XOR} can be used both as
+logical operators, or as boolean operators.
 
-1st. example: \screentextwide{IF A>B AND A<0} \\
-2nd. example: \screentextwide{A = B AND \$7F}
+\begin{itemize}
+  \item {\bf Logical Operator Example}: \screentext{IF A>B AND A<0}
+  \item {\bf Boolean Operator Example}: \screentext{A = B AND \$7F}
+\end{itemize}
 
-Both examples produce internally always an integer result, which can be interpreted
+Both examples always produce an integer result internally, which can be interpreted
 either numerically or logically.
 If the result of a comparison is {\bf TRUE}, the value will be set
-to {\bf -1}, while a false result yields {\bf 0}.
-In the second example the operator {\bf AND} converts both operands
-to a 16bit integer value and peforms a bitwise {\bf AND} for all 16 bits.
-This example will take the value of B, set the upper 9 bits to zero
-and store the result in A.
+to {\bf -1}, while a {\bf FALSE} result yields {\bf 0}.
+In the boolean operator example above, the \screentext{AND} operator converts both operands
+to a 16-bit integer value, and performs a bitwise {\bf AND} for all 16 bits.
+This example will take the value of \screentext{B}, set the upper 9 bits to zero,
+and store the result in \screentext{A}.
 
-The result of logical operations can be used in numerical expressions too,
-for example
-\screentextwide{A = A - (B > 7)}
-will increment A by 1 if the comparison (B > 7) yields {\bf TRUE} (-1).
+The result of logical operations can be used in numerical expressions as well,
+for example,
+\screentext{A = A - (B > 7)}
+will increment \screentext{A} by 1 if the result of \screentext{(B > 7)} is {\bf TRUE} (-1).
 
-The operators have precedences, which are listed in a table below.
-In a statement
-\screentextwide{A * A - B * B}
-both  multiplications will be done , before the subtraction is executed.
+The operators have precedences, which are listed in the tables below.
+In the statement \screentext{A * A - B * B}
+both multiplications will be performed first, before the subtraction is executed.
 Parentheses are used to change the precedence, for example
-\screentextwide{A * (A - B) * B)} will execute the subtraction first.
+\screentext{A * (A - B) * B)} will execute the subtraction first.
 
 \subsection{Assignment Operator}
 
@@ -432,7 +437,7 @@ You must choose one option. The options are separated by |. \\
 \hline
 [ | ] &
 You can choose one option. The options are separated by |.
-You can also choose no option by leave it out. \\
+You can also choose no option by leaving it out. \\
 \hline
 \{ , \} &
 Between \{ and \} are a series of expressions separated by commas.
